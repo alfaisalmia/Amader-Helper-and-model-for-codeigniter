@@ -1,0 +1,18 @@
+CREATE PROCEDURE home()
+BEGIN
+SELECT COUNT(jobs.id) as total, job_category.name, job_category.id
+FROM jobs, jobs_category, job_category
+WHERE jobs.id = jobs_category.jobsid AND
+job_category.id = jobs_category.categoryid
+GROUP BY jobs_category.categoryid;
+END
+
+
+CREATE PROCEDURE category(in IDS int)
+BEGIN
+SELECT jobs.id, jobs.title
+FROM jobs, jobs_category, job_category
+WHERE jobs.id = jobs_category.jobsid AND jobs_category.categoryid = job_category.id AND
+job_category.id = IDS
+ORDER BY jobs.id DESC;
+END
